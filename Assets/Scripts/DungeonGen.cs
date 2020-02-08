@@ -122,57 +122,37 @@ public class DungeonGen : MonoBehaviour
             for (int x = 0; x < width; ++x)
             {
                 Tile newTileEnum = getTile(x, y);
-                //Closed Door Structure Tile Color = blue
                 if(newTileEnum== Tile.ClosedDoor)
                 {
-                    Instantiate(closedDoor, new Vector3(x*2, 0, y * 2), Quaternion.identity);
+                    Instantiate(floor, new Vector3(x * 2f, 0, y * 2f), Quaternion.Euler(-90, 0, 0));
                 }
-                //Corridor Tile Color = black
                 else if (newTileEnum == Tile.Corridor)
                 {
-                    Instantiate(corridor, new Vector3(x * 2, 0, y * 2), Quaternion.identity);
+                    Instantiate(floor, new Vector3(x * 2, 0, y * 2), Quaternion.Euler(-90, 0, 0));
                 }
-                //Downstairs Structure Tile Color = green
                 else if (newTileEnum == Tile.DownStairs)
                 {
-                    Instantiate(downStairs, new Vector3(x * 2, 0, y * 2), Quaternion.identity);
+                    Instantiate(floor, new Vector3(x * 2f, 0, y * 2f), Quaternion.Euler(-90, 0, 0));
                 }
-                //OpenDoor Structure Tile Color = yellow
                 else if (newTileEnum == Tile.OpenDoor)
                 {
-                    Instantiate(openDoor, new Vector3(x * 2, 0, y * 2), Quaternion.identity);
+                    Instantiate(floor, new Vector3(x * 2f, 0, y * 2f), Quaternion.Euler(-90, 0, 0));
                 }
-                //UpStairs Structure Tile Color = green
                 else if (newTileEnum == Tile.UpStairs)
                 {
-                    Instantiate(upStairs, new Vector3(x * 2, 0, y * 2), Quaternion.identity);
+                    Instantiate(floor, new Vector3(x * 2f, 0, y * 2f), Quaternion.Euler(-90, 0, 0));
                 }
-                //Wall tile Color = gray
                 else if (newTileEnum == Tile.Wall)
                 {
-                    //Check if conoroed Pieces
-                    //Bottom Left
-                    /*if(getTile(x+1,y) == Tile.Wall && getTile(x,y+1) == Tile.Wall)
-                    {
-                        Instantiate(wall, new Vector3(x * 2f, 0, y * 2f), Quaternion.Euler(0,-90,0));
-                    }
-                    //Top Left
-                    else if(getTile(x+1,y) == Tile.Wall && getTile(x,y-1) == Tile.Wall)
-                    {
-                        Instantiate(wall, new Vector3(x * 2f, 0, y * 2f), Quaternion.identity);
-                    }
-                    //Bottom Right
-                    else if(getTile(x -1, y) == Tile.Wall && getTile(x, y + 1) == Tile.Wall)
-                    {
-                        Instantiate(wall, new Vector3(x * 2f, 0, y * 2f), Quaternion.Euler(0, 180, 0));
-                    }
-                    //Top Right
-                    else if(getTile(x - 1, y) == Tile.Wall && getTile(x, y - 1) == Tile.Wall)
-                    {
-                        Instantiate(wall, new Vector3(x * 2f, 0, y * 2f), Quaternion.Euler(0, 90, 0));
-                    }*/
-                    //Check if horizontal or vertical wall
-                    Instantiate(wall, new Vector3(x * 2f, 0, y * 2f), Quaternion.Euler(-90,0,0));
+                    Instantiate(wall, new Vector3(x * 1f, 0, y * 1f), Quaternion.Euler(-90,0,0));
+                }
+                else if(newTileEnum == Tile.Floor)
+                {
+                    Instantiate(floor, new Vector3(x * 2f, 0, y * 2f), Quaternion.Euler(-90, 0, 0));
+                }
+                else
+                {
+                    Instantiate(floor, new Vector3(x * 2f, 0, y * 2f), Quaternion.Euler(-90, 0, 0));
                 }
             }
                 
