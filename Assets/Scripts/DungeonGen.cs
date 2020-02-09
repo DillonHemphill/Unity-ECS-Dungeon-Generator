@@ -124,7 +124,7 @@ public class DungeonGen : MonoBehaviour
                 Tile newTileEnum = getTile(x, y);
                 if(newTileEnum== Tile.ClosedDoor)
                 {
-                    Instantiate(floor, new Vector3(x * 2f, 0, y * 2f), Quaternion.Euler(-90, 0, 0));
+                    Instantiate(closedDoor, new Vector3(x * 2f, 0, y * 2f), Quaternion.Euler(-90, 0, 0));
                 }
                 else if (newTileEnum == Tile.Corridor)
                 {
@@ -132,25 +132,21 @@ public class DungeonGen : MonoBehaviour
                 }
                 else if (newTileEnum == Tile.DownStairs)
                 {
-                    Instantiate(floor, new Vector3(x * 2f, 0, y * 2f), Quaternion.Euler(-90, 0, 0));
+                    Instantiate(downStairs, new Vector3(x * 2f, 0, y * 2f), Quaternion.Euler(-90, 0, 0));
                 }
                 else if (newTileEnum == Tile.OpenDoor)
                 {
-                    Instantiate(floor, new Vector3(x * 2f, 0, y * 2f), Quaternion.Euler(-90, 0, 0));
+                    Instantiate(openDoor, new Vector3(x * 2f, 0, y * 2f), Quaternion.Euler(-90, 0, 0));
                 }
                 else if (newTileEnum == Tile.UpStairs)
                 {
-                    Instantiate(floor, new Vector3(x * 2f, 0, y * 2f), Quaternion.Euler(-90, 0, 0));
+                    Instantiate(upStairs, new Vector3(x * 2f, 0, y * 2f), Quaternion.Euler(-90, 0, 0));
                 }
                 else if (newTileEnum == Tile.Wall)
                 {
-                    Instantiate(wall, new Vector3(x * 1f, 0, y * 1f), Quaternion.Euler(-90,0,0));
+                    Instantiate(wall, new Vector3(x * 2f, 0f, y * 2f), Quaternion.Euler(0,0,0));
                 }
                 else if(newTileEnum == Tile.Floor)
-                {
-                    Instantiate(floor, new Vector3(x * 2f, 0, y * 2f), Quaternion.Euler(-90, 0, 0));
-                }
-                else
                 {
                     Instantiate(floor, new Vector3(x * 2f, 0, y * 2f), Quaternion.Euler(-90, 0, 0));
                 }
