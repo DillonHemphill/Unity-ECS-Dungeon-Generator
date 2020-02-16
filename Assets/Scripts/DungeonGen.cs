@@ -1,14 +1,24 @@
 ﻿using System;
+
 using System.Collections;
+
+
+
 using System.Collections.Generic;
+
 using UnityEngine;
 
+
+
 //Tile structure
+
 public enum Tile
+
 {
-    Unused = ' ',
+   Unused = ' ',
     Floor = '.',
     Corridor = ',',
+  
     Wall = '#',
     ClosedDoor = '+',
     OpenDoor = '-',
@@ -95,7 +105,7 @@ public class DungeonGen : MonoBehaviour
     //Rect list structure
     private List<Rect> exits;
 
-    //Start of execution
+    //Start +++++++++++++of execution
     private void Start()
     {
         //Create an width * height size tile structure and fill with Unused tiles
@@ -124,23 +134,15 @@ public class DungeonGen : MonoBehaviour
                 Tile newTileEnum = getTile(x, y);
                 if(newTileEnum== Tile.ClosedDoor)
                 {
-                    Instantiate(closedDoor, new Vector3(x * 2f, 0, y * 2f), Quaternion.Euler(-90, 0, 0));
-                }
-                else if (newTileEnum == Tile.Corridor)
-                {
-                    Instantiate(floor, new Vector3(x * 2, 0, y * 2), Quaternion.Euler(-90, 0, 0));
-                }
-                else if (newTileEnum == Tile.DownStairs)
-                {
-                    Instantiate(downStairs, new Vector3(x * 2f, 0, y * 2f), Quaternion.Euler(-90, 0, 0));
-                }
-                else if (newTileEnum == Tile.OpenDoor)
-                {
-                    Instantiate(openDoor, new Vector3(x * 2f, 0, y * 2f), Quaternion.Euler(-90, 0, 0));
-                }
-                else if (newTileEnum == Tile.UpStairs)
-                {
-                    Instantiate(upStairs, new Vector3(x * 2f, 0, y * 2f), Quaternion.Euler(-90, 0, 0));
+                    
+                    if(getTile(x-1,y) == Tile.Wall && getTile(x+1,y) == Tile.Wall)
+                    {
+                        Instantiate(closedDoor, new Vector3(x * 2f, 0, y * 2f), Quaternion.Euler(0, 0, 0));
+                    }
+                    else
+                    {
+                        Instantiate(closedDoor, new Vector3(x * 2f, 0, y * 2f), Quaternion.Euler(0, 90, 0));
+                    }
                 }
                 else if (newTileEnum == Tile.Wall)
                 {
@@ -153,6 +155,7 @@ public class DungeonGen : MonoBehaviour
             }
                 
         }
+        
     }
 
     //Generate the duegon based on Version 3 of "C++ Example of Dungeon-Building Algorithm" by MindControlDx
