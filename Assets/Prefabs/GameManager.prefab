@@ -43,12 +43,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67872485016e30b4ca1724bbdb18a39a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tileObject: {fileID: 0}
-  width: 0
-  height: 0
-  numbOfStructures: 0
-  minRoomSize: 0
-  maxRoomSize: 0
+  floor: {fileID: 7404919313751931070, guid: e42a4c4118f76a949be9fb786cb0eed6, type: 3}
+  wall: {fileID: 5646900225276564745, guid: 637eb96b4f12f2a4780c06532a2e3865, type: 3}
+  conoroedWall: {fileID: 3286716820869530041, guid: ec24e1d434c2513438db74fcdee8a35e,
+    type: 3}
+  closedDoor: {fileID: 4461523724210414161, guid: fda3f5f66d5735c429468843832473b9,
+    type: 3}
+  torchObject: {fileID: 7638569326918032460, guid: e452e0558aa95c945926db96d1cebec5,
+    type: 3}
+  width: 400
+  height: 400
+  numbOfStructures: 35
+  minRoomSize: 4
+  maxRoomSize: 25
   minCorridorLength: 0
   maxCorridorLength: 0
-  roomChance: 0
+  roomChance: 95

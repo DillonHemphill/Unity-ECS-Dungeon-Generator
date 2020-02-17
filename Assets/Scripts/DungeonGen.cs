@@ -15,11 +15,11 @@ using UnityEngine;
 public enum Tile
 
 {
-   Unused = ' ',
+    Unused = ' ',
     Floor = '.',
     Corridor = ',',
-  
     Wall = '#',
+    Conor = '¬',
     ClosedDoor = '+',
     OpenDoor = '-',
     UpStairs = '<',
@@ -47,15 +47,8 @@ public class DungeonGen : MonoBehaviour
         public int width, height;
     }
 
-    //Unused Object
-    [SerializeField]
-    private GameObject unused;
-    //Floor Object
     [SerializeField]
     private GameObject floor;
-    //Corridor Object
-    [SerializeField]
-    private GameObject corridor;
     //Wall Object
     [SerializeField]
     private GameObject wall;
@@ -65,15 +58,9 @@ public class DungeonGen : MonoBehaviour
     //ClosedDoor Object
     [SerializeField]
     private GameObject closedDoor;
-    //OpenDoor Object
+    //Torch Object
     [SerializeField]
-    private GameObject openDoor;
-    //Upstairs Object
-    [SerializeField]
-    private GameObject upStairs;
-    //DownStairs Object
-    [SerializeField]
-    private GameObject downStairs;
+    private GameObject torchObject;
 
     //Width of the tile generated structure
     [SerializeField]
@@ -146,7 +133,18 @@ public class DungeonGen : MonoBehaviour
                 }
                 else if (newTileEnum == Tile.Wall)
                 {
-                    Instantiate(wall, new Vector3(x * 2f, 0f, y * 2f), Quaternion.Euler(0,0,0));
+                    if (getTile(x - 1, y) == Tile.Wall && getTile(x + 1, y) == Tile.Wall)
+                    {
+                        Instantiate(wall, new Vector3(x * 2f, 0f, y * 2f), Quaternion.Euler(0, 90, 0));
+                    }
+                    else
+                    {
+                        Instantiate(wall, new Vector3(x * 2f, 0f, y * 2f), Quaternion.Euler(0, 180, 0));
+                    }
+                }
+                else if(newTileEnum == Tile.Conor)
+                {
+                    Instantiate(conoroedWall, new Vector3(x * 2f, 0, y * 2f), Quaternion.Euler(0, 0, 0));
                 }
                 else if(newTileEnum == Tile.Floor)
                 {
@@ -196,6 +194,35 @@ public class DungeonGen : MonoBehaviour
             else if (tiles[i] == Tile.Floor || tiles[i] == Tile.Corridor)
                 tiles[i] = Tile.Unused;
         }
+
+        //Set Conor walls
+        for (int y = 0; y < height; ++y)
+        {
+            for (int x = 0; x < width; ++x)
+            {
+                if (getTile(x + 1, y) == Tile.Wall && getTile(x, y - 1) == Tile.Wall)
+                {
+
+                    tiles[x + y * width] = Tile.Conor;
+                }
+                //Top Right Conor
+                else if (getTile(x - 1, y) == Tile.Wall && getTile(x, y - 1) == Tile.Wall)
+                {
+                    tiles[x + y * width] = Tile.Conor;
+                }
+                //Bottom Left Conor
+                else if (getTile(x + 1, y) == Tile.Wall && getTile(x, y + 1) == Tile.Wall)
+                {
+                    tiles[x + y * width] = Tile.Conor;
+                }
+                //Bottom Right Conor
+                else if (getTile(x - 1, y) == Tile.Wall && getTile(x, y + 1) == Tile.Wall)
+                {
+                    tiles[x + y * width] = Tile.Conor;
+                }
+            }
+        }
+                
     }
 
     //Get tile from list based on x & y
