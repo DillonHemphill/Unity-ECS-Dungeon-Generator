@@ -57,5 +57,5 @@ MonoBehaviour:
   minRoomSize: 4
   maxRoomSize: 25
   minCorridorLength: 0
-  maxCorridorLength: 0
+  maxCorridorLength: 5
   roomChance: 95

@@ -145,6 +145,7 @@ public class DungeonGen : MonoBehaviour
                 else if(newTileEnum == Tile.Conor)
                 {
                     Instantiate(conoroedWall, new Vector3(x * 2f, 0, y * 2f), Quaternion.Euler(0, 0, 0));
+                    Debug.Log("Genering wall");
                 }
                 else if(newTileEnum == Tile.Floor)
                 {
