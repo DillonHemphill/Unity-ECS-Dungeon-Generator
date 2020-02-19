@@ -149,6 +149,26 @@ public class DungeonGen : MonoBehaviour
                     {
                         Instantiate(wall, new Vector3(x * 2f, 0f, y * 2f), Quaternion.Euler(0, 180, 0));
                     }
+                    //Top Left Conor
+                    if (getTile(x + 1, y) == Tile.Wall && getTile(x, y - 1) == Tile.Wall)
+                    {
+                        Instantiate(torchObject, new Vector3((x * 2f)+1f, 1f, (y * 2f)-2), Quaternion.Euler(0, 180, 0)).name = "Top left";
+                    }
+                    //Top Right Conor
+                    else if (getTile(x - 1, y) == Tile.Wall && getTile(x, y - 1) == Tile.Wall)
+                    {
+                        Instantiate(torchObject, new Vector3((x * 2f)-1f, 1f, (y * 2f) - 2), Quaternion.Euler(0, 0, 0)).name = "Top Right";
+                    }
+                    //Bottom Left Conor
+                    else if (getTile(x + 1, y) == Tile.Wall && getTile(x, y + 1) == Tile.Wall)
+                    {
+                        Instantiate(torchObject, new Vector3((x * 2f) +1f, 1f, (y * 2f) + 2), Quaternion.Euler(0, 180, 0)).name = "Bottom left";
+                    }
+                    //Bottom Right Conor
+                    else if (getTile(x - 1, y) == Tile.Wall && getTile(x, y + 1) == Tile.Wall)
+                    {
+                        Instantiate(torchObject, new Vector3((x * 2f) -1f, 1f, (y * 2f) + 2), Quaternion.Euler(0, 0, 0)).name = "Bottom Right";
+                    }
                 }
                 else if(newTileEnum == Tile.Floor)
                 {
