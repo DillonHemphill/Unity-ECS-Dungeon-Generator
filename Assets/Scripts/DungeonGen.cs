@@ -133,7 +133,15 @@ public class DungeonGen : MonoBehaviour
                 }
                 else if (newTileEnum == Tile.Wall)
                 {
-                    if (getTile(x - 1, y) == Tile.Wall && getTile(x + 1, y) == Tile.Wall)
+                    if (getTile(x - 1, y) == Tile.ClosedDoor || getTile(x + 1, y) == Tile.ClosedDoor)
+                    {
+                        Instantiate(conoroedWall, new Vector3(x * 2f, 0f, y * 2f), Quaternion.Euler(0, 90, 0));
+                    }
+                    else if(getTile(x, y-1) == Tile.ClosedDoor || getTile(x, y + 1) == Tile.ClosedDoor)
+                    {
+                        Instantiate(conoroedWall, new Vector3(x * 2f, 0f, y * 2f), Quaternion.Euler(0, 180, 0));
+                    }
+                    else if (getTile(x - 1, y) == Tile.Wall && getTile(x + 1, y) == Tile.Wall)
                     {
                         Instantiate(wall, new Vector3(x * 2f, 0f, y * 2f), Quaternion.Euler(0, 90, 0));
                     }
@@ -142,14 +150,10 @@ public class DungeonGen : MonoBehaviour
                         Instantiate(wall, new Vector3(x * 2f, 0f, y * 2f), Quaternion.Euler(0, 180, 0));
                     }
                 }
-                else if(newTileEnum == Tile.Conor)
-                {
-                    Instantiate(conoroedWall, new Vector3(x * 2f, 0, y * 2f), Quaternion.Euler(0, 0, 0));
-                    Debug.Log("Genering wall");
-                }
                 else if(newTileEnum == Tile.Floor)
                 {
                     Instantiate(floor, new Vector3(x * 2f, 0, y * 2f), Quaternion.Euler(-90, 0, 0));
+                    Debug.Log("This should'nt be outputting. Unless you've made a huge mistake");
                 }
             }
                 
@@ -196,33 +200,6 @@ public class DungeonGen : MonoBehaviour
                 tiles[i] = Tile.Unused;
         }
 
-        //Set Conor walls
-        for (int y = 0; y < height; ++y)
-        {
-            for (int x = 0; x < width; ++x)
-            {
-                if (getTile(x + 1, y) == Tile.Wall && getTile(x, y - 1) == Tile.Wall)
-                {
-
-                    tiles[x + y * width] = Tile.Conor;
-                }
-                //Top Right Conor
-                else if (getTile(x - 1, y) == Tile.Wall && getTile(x, y - 1) == Tile.Wall)
-                {
-                    tiles[x + y * width] = Tile.Conor;
-                }
-                //Bottom Left Conor
-                else if (getTile(x + 1, y) == Tile.Wall && getTile(x, y + 1) == Tile.Wall)
-                {
-                    tiles[x + y * width] = Tile.Conor;
-                }
-                //Bottom Right Conor
-                else if (getTile(x - 1, y) == Tile.Wall && getTile(x, y + 1) == Tile.Wall)
-                {
-                    tiles[x + y * width] = Tile.Conor;
-                }
-            }
-        }
                 
     }
 

@@ -303,6 +303,41 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5866586331994595873, guid: 9d9bd6834b0743945814f0fc430189e2,
+        type: 3}
+      propertyPath: width
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 5866586331994595873, guid: 9d9bd6834b0743945814f0fc430189e2,
+        type: 3}
+      propertyPath: height
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 5866586331994595873, guid: 9d9bd6834b0743945814f0fc430189e2,
+        type: 3}
+      propertyPath: maxRoomSize
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 5866586331994595873, guid: 9d9bd6834b0743945814f0fc430189e2,
+        type: 3}
+      propertyPath: minRoomSize
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5866586331994595873, guid: 9d9bd6834b0743945814f0fc430189e2,
+        type: 3}
+      propertyPath: minCorridorLength
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5866586331994595873, guid: 9d9bd6834b0743945814f0fc430189e2,
+        type: 3}
+      propertyPath: numbOfStructures
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5866586331994595873, guid: 9d9bd6834b0743945814f0fc430189e2,
+        type: 3}
+      propertyPath: maxCorridorLength
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 6845428239223360781, guid: 9d9bd6834b0743945814f0fc430189e2,
         type: 3}
       propertyPath: m_LocalPosition.x
