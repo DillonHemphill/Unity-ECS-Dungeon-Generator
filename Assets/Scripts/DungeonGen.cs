@@ -52,6 +52,9 @@ public class DungeonGen : MonoBehaviour
     //Wall Object
     [SerializeField]
     private GameObject wall;
+    //Banner Wall
+    [SerializeField]
+    private GameObject bannerWall;
     //Conoroed Wall Piece
     [SerializeField]
     private GameObject conoroedWall;
@@ -143,12 +146,29 @@ public class DungeonGen : MonoBehaviour
                     }
                     else if (getTile(x - 1, y) == Tile.Wall && getTile(x + 1, y) == Tile.Wall)
                     {
-                        Instantiate(wall, new Vector3(x * 2f, 0f, y * 2f), Quaternion.Euler(0, 90, 0));
+                        int random = UnityEngine.Random.Range(0, 10);
+                        if(random <= 1)
+                        {
+                            Instantiate(bannerWall, new Vector3(x * 2f, 0f, y * 2f), Quaternion.Euler(0, 90, 0));
+                        }
+                        else
+                        {
+                            Instantiate(wall, new Vector3(x * 2f, 0f, y * 2f), Quaternion.Euler(0, 90, 0));
+                        }
                     }
                     else
                     {
-                        Instantiate(wall, new Vector3(x * 2f, 0f, y * 2f), Quaternion.Euler(0, 180, 0));
+                        int random = UnityEngine.Random.Range(0, 10);
+                        if (random <= 1)
+                        {
+                            Instantiate(bannerWall, new Vector3(x * 2f, 0f, y * 2f), Quaternion.Euler(0, 180, 0));
+                        }
+                        else
+                        {
+                            Instantiate(wall, new Vector3(x * 2f, 0f, y * 2f), Quaternion.Euler(0, 180, 0));
+                        }
                     }
+                    //Create torches
                     //Top Left Conor
                     if (getTile(x + 1, y) == Tile.Wall && getTile(x, y - 1) == Tile.Wall)
                     {
