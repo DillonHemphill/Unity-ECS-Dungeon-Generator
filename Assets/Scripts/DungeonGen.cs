@@ -1,13 +1,12 @@
 ﻿using System;
-
 using System.Collections;
-
-
-
 using System.Collections.Generic;
-
 using UnityEngine;
-
+using Unity.Entities;
+using Unity.Transforms;
+using Unity.Collections;
+using Unity.Rendering;
+using Unity.Mathematics;
 
 
 //Tile structure
@@ -49,21 +48,27 @@ public class DungeonGen : MonoBehaviour
 
     [SerializeField]
     private GameObject floor;
+    private Entity floorEntity;
     //Wall Object
     [SerializeField]
     private GameObject wall;
+    private Entity wallEntity;
     //Banner Wall
     [SerializeField]
     private GameObject bannerWall;
+    private Entity bannerWallEntity;
     //Conoroed Wall Piece
     [SerializeField]
     private GameObject conoroedWall;
+    private Entity conoroedWallEntity;
     //ClosedDoor Object
     [SerializeField]
     private GameObject closedDoor;
+    private Entity closedDoorEntity;
     //Torch Object
     [SerializeField]
     private GameObject torchObject;
+    private Entity torchObjectEntity;
 
     //Width of the tile generated structure
     [SerializeField]
@@ -117,6 +122,15 @@ public class DungeonGen : MonoBehaviour
     //Instantiate all the tiles in the last by using getTile, and then changing color based on type of tile
     private void CreateObjects()
     {
+        EntityManager entityManager = World.Active.EntityManager;
+        wallEntity = GameObjectConversionUtility.ConvertGameObjectHierarchy(wall, World.Active);
+        floorEntity = GameObjectConversionUtility.ConvertGameObjectHierarchy(floor, World.Active);
+        bannerWallEntity = GameObjectConversionUtility.ConvertGameObjectHierarchy(bannerWall, World.Active);
+        conoroedWallEntity = GameObjectConversionUtility.ConvertGameObjectHierarchy(conoroedWall, World.Active);
+        closedDoorEntity = GameObjectConversionUtility.ConvertGameObjectHierarchy(closedDoor, World.Active);
+        torchObjectEntity = GameObjectConversionUtility.ConvertGameObjectHierarchy(torchObject, World.Active);
+
+
         for (int y = 0; y < height; ++y)
         {
             for (int x = 0; x < width; ++x)
@@ -124,36 +138,80 @@ public class DungeonGen : MonoBehaviour
                 Tile newTileEnum = getTile(x, y);
                 if(newTileEnum== Tile.ClosedDoor)
                 {
-                    
-                    if(getTile(x-1,y) == Tile.Wall && getTile(x+1,y) == Tile.Wall)
+                    if (getTile(x - 1, y) == Tile.Wall && getTile(x + 1, y) == Tile.Wall)
                     {
-                        Instantiate(closedDoor, new Vector3(x * 2f, 0, y * 2f), Quaternion.Euler(0, 0, 0));
+                        //Instantiate(closedDoor, new Vector3(x * 2f, 0, y * 2f), Quaternion.Euler(0, 0, 0));
+                        Entity newClosedDoorEntity = entityManager.Instantiate(closedDoorEntity);
+                        entityManager.SetComponentData(newClosedDoorEntity,
+                            new Translation
+                            {
+                                Value = new float3(x * 2f, 0, y * 2f)
+                            }
+                        );
+
                     }
                     else
                     {
-                        Instantiate(closedDoor, new Vector3(x * 2f, 0, y * 2f), Quaternion.Euler(0, 90, 0));
+                        //Instantiate(closedDoor, new Vector3(x * 2f, 0, y * 2f), Quaternion.Euler(0, 90, 0));
+                        Entity newClosedDoorEntity = entityManager.Instantiate(closedDoorEntity);
+                        entityManager.SetComponentData(newClosedDoorEntity,
+                            new Translation
+                            {
+                                Value = new float3(x * 2f, 0, y * 2f)
+                            }
+                        );
                     }
+
                 }
                 else if (newTileEnum == Tile.Wall)
                 {
                     if (getTile(x - 1, y) == Tile.ClosedDoor || getTile(x + 1, y) == Tile.ClosedDoor)
                     {
-                        Instantiate(conoroedWall, new Vector3(x * 2f, 0f, y * 2f), Quaternion.Euler(0, 90, 0));
+                        //Instantiate(conoroedWall, new Vector3(x * 2f, 0f, y * 2f), Quaternion.Euler(0, 90, 0));
+                        Entity newConoroedWallEntity = entityManager.Instantiate(conoroedWallEntity);
+                        entityManager.SetComponentData(newConoroedWallEntity,
+                            new Translation
+                            {
+                                Value = new float3(x * 2f, 0f, y * 2f)
+                            }
+                        );
                     }
                     else if(getTile(x, y-1) == Tile.ClosedDoor || getTile(x, y + 1) == Tile.ClosedDoor)
                     {
-                        Instantiate(conoroedWall, new Vector3(x * 2f, 0f, y * 2f), Quaternion.Euler(0, 180, 0));
+                        //Instantiate(conoroedWall, new Vector3(x * 2f, 0f, y * 2f), Quaternion.Euler(0, 180, 0));
+                        Entity newConoroedWallEntity = entityManager.Instantiate(conoroedWallEntity);
+                        entityManager.SetComponentData(newConoroedWallEntity,
+                            new Translation
+                            {
+                                Value = new float3(x * 2f, 0f, y * 2f)
+                            }
+                        );
+
                     }
                     else if (getTile(x - 1, y) == Tile.Wall && getTile(x + 1, y) == Tile.Wall)
                     {
                         int random = UnityEngine.Random.Range(0, 10);
                         if(random <= 1)
                         {
-                            Instantiate(bannerWall, new Vector3(x * 2f, 0f, y * 2f), Quaternion.Euler(0, 90, 0));
+                            //Instantiate(bannerWall, new Vector3(x * 2f, 0f, y * 2f), Quaternion.Euler(0, 90, 0));
+                            Entity newBannerWallEntity = entityManager.Instantiate(bannerWallEntity);
+                            entityManager.SetComponentData(newBannerWallEntity,
+                                new Translation
+                                {
+                                    Value = new float3(x * 2f, 0f, y * 2f)
+                                }
+                            );
                         }
                         else
                         {
-                            Instantiate(wall, new Vector3(x * 2f, 0f, y * 2f), Quaternion.Euler(0, 90, 0));
+                            //Instantiate(wall, new Vector3(x * 2f, 0f, y * 2f), Quaternion.Euler(0, 90, 0));
+                            Entity newWallEntity = entityManager.Instantiate(wallEntity);
+                            entityManager.SetComponentData(newWallEntity,
+                                new Translation
+                                {
+                                    Value = new float3(x * 2f, 0f, y * 2f)
+                                }
+                            );
                         }
                     }
                     else
@@ -161,39 +219,87 @@ public class DungeonGen : MonoBehaviour
                         int random = UnityEngine.Random.Range(0, 10);
                         if (random <= 1)
                         {
-                            Instantiate(bannerWall, new Vector3(x * 2f, 0f, y * 2f), Quaternion.Euler(0, 180, 0));
+                            //Instantiate(bannerWall, new Vector3(x * 2f, 0f, y * 2f), Quaternion.Euler(0, 180, 0));
+                            Entity newBannerWallEntity = entityManager.Instantiate(bannerWallEntity);
+                            entityManager.SetComponentData(newBannerWallEntity,
+                                new Translation
+                                {
+                                    Value = new float3(x * 2f, 0f, y * 2f)
+                                }
+                            );
                         }
                         else
                         {
-                            Instantiate(wall, new Vector3(x * 2f, 0f, y * 2f), Quaternion.Euler(0, 180, 0));
+                            //Instantiate(wall, new Vector3(x * 2f, 0f, y * 2f), Quaternion.Euler(0, 180, 0));
+                            Entity newWallEntity = entityManager.Instantiate(wallEntity);
+                            entityManager.SetComponentData(newWallEntity,
+                                new Translation
+                                {
+                                    Value = new float3(x * 2f, 0f, y * 2f)
+                                }
+                            );
                         }
                     }
                     //Create torches
                     //Top Left Conor
                     if (getTile(x + 1, y) == Tile.Wall && getTile(x, y - 1) == Tile.Wall)
                     {
-                        Instantiate(torchObject, new Vector3((x * 2f)+1f, 1f, (y * 2f)-2), Quaternion.Euler(0, 180, 0)).name = "Top left";
+                        //Instantiate(torchObject, new Vector3((x * 2f)+1f, 1f, (y * 2f)-2), Quaternion.Euler(0, 180, 0)).name = "Top left";
+                        Entity newTorchEntity = entityManager.Instantiate(torchObjectEntity);
+                        entityManager.SetComponentData(newTorchEntity,
+                            new Translation
+                            {
+                                Value = new float3((x * 2f) + 1f, 1f, (y * 2f) - 2)
+                            }
+                        );
                     }
                     //Top Right Conor
                     else if (getTile(x - 1, y) == Tile.Wall && getTile(x, y - 1) == Tile.Wall)
                     {
-                        Instantiate(torchObject, new Vector3((x * 2f)-1f, 1f, (y * 2f) - 2), Quaternion.Euler(0, 0, 0)).name = "Top Right";
+                        //Instantiate(torchObject, new Vector3((x * 2f)-1f, 1f, (y * 2f) - 2), Quaternion.Euler(0, 0, 0)).name = "Top Right";
+                        Entity newTorchEntity = entityManager.Instantiate(torchObjectEntity);
+                        entityManager.SetComponentData(newTorchEntity,
+                            new Translation
+                            {
+                                Value = new float3((x * 2f) - 1f, 1f, (y * 2f) - 2)
+                            }
+                        );
                     }
                     //Bottom Left Conor
                     else if (getTile(x + 1, y) == Tile.Wall && getTile(x, y + 1) == Tile.Wall)
                     {
-                        Instantiate(torchObject, new Vector3((x * 2f) +1f, 1f, (y * 2f) + 2), Quaternion.Euler(0, 180, 0)).name = "Bottom left";
+                        //Instantiate(torchObject, new Vector3((x * 2f) +1f, 1f, (y * 2f) + 2), Quaternion.Euler(0, 180, 0)).name = "Bottom left";
+                        Entity newTorchEntity = entityManager.Instantiate(torchObjectEntity);
+                        entityManager.SetComponentData(newTorchEntity,
+                            new Translation
+                            {
+                                Value = new float3((x * 2f) + 1f, 1f, (y * 2f) + 2)
+                            }
+                        );
                     }
                     //Bottom Right Conor
                     else if (getTile(x - 1, y) == Tile.Wall && getTile(x, y + 1) == Tile.Wall)
                     {
-                        Instantiate(torchObject, new Vector3((x * 2f) -1f, 1f, (y * 2f) + 2), Quaternion.Euler(0, 0, 0)).name = "Bottom Right";
+                        //Instantiate(torchObject, new Vector3((x * 2f) -1f, 1f, (y * 2f) + 2), Quaternion.Euler(0, 0, 0)).name = "Bottom Right";
+                        Entity newTorchEntity = entityManager.Instantiate(torchObjectEntity);
+                        entityManager.SetComponentData(newTorchEntity,
+                            new Translation
+                            {
+                                Value = new float3((x * 2f) - 1f, 1f, (y * 2f) + 2)
+                            }
+                        );
                     }
                 }
                 else if(newTileEnum == Tile.Floor)
                 {
-                    Instantiate(floor, new Vector3(x * 2f, 0, y * 2f), Quaternion.Euler(-90, 0, 0));
-                    Debug.Log("This should'nt be outputting. Unless you've made a huge mistake");
+                    //Instantiate(floor, new Vector3(x * 2f, 0, y * 2f), Quaternion.Euler(-90, 0, 0));
+                    Entity newFloorEntity = entityManager.Instantiate(floorEntity);
+                    entityManager.SetComponentData(newFloorEntity,
+                        new Translation
+                        {
+                            Value = new float3(x * 2f, 0, y * 2f)
+                        }
+                    );
                 }
             }
                 

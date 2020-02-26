@@ -306,50 +306,13 @@ PrefabInstance:
     - target: {fileID: 5866586331994595873, guid: 9d9bd6834b0743945814f0fc430189e2,
         type: 3}
       propertyPath: width
-      value: 500
+      value: 1000
       objectReference: {fileID: 0}
     - target: {fileID: 5866586331994595873, guid: 9d9bd6834b0743945814f0fc430189e2,
         type: 3}
       propertyPath: height
-      value: 500
+      value: 1000
       objectReference: {fileID: 0}
-    - target: {fileID: 5866586331994595873, guid: 9d9bd6834b0743945814f0fc430189e2,
-        type: 3}
-      propertyPath: maxRoomSize
-      value: 14
-      objectReference: {fileID: 0}
-    - target: {fileID: 5866586331994595873, guid: 9d9bd6834b0743945814f0fc430189e2,
-        type: 3}
-      propertyPath: minRoomSize
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 5866586331994595873, guid: 9d9bd6834b0743945814f0fc430189e2,
-        type: 3}
-      propertyPath: minCorridorLength
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 5866586331994595873, guid: 9d9bd6834b0743945814f0fc430189e2,
-        type: 3}
-      propertyPath: numbOfStructures
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5866586331994595873, guid: 9d9bd6834b0743945814f0fc430189e2,
-        type: 3}
-      propertyPath: maxCorridorLength
-      value: 11
-      objectReference: {fileID: 0}
-    - target: {fileID: 5866586331994595873, guid: 9d9bd6834b0743945814f0fc430189e2,
-        type: 3}
-      propertyPath: curtainObject
-      value: 
-      objectReference: {fileID: -927199367670048503, guid: 5416d599bd87c784bb2d24b9b5c52f33,
-        type: 3}
-    - target: {fileID: 5866586331994595873, guid: 9d9bd6834b0743945814f0fc430189e2,
-        type: 3}
-      propertyPath: bannerWall
-      value: 
-      objectReference: {fileID: 2436661639803837597, guid: c9c0696dfa5168a4390e269da12f595f,
-        type: 3}
     - target: {fileID: 6845428239223360781, guid: 9d9bd6834b0743945814f0fc430189e2,
         type: 3}
       propertyPath: m_LocalPosition.x
